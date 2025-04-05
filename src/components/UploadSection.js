@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
 import React, { useRef, useState } from 'react';
+import { api } from '../api';
 
 const DropZone = styled(Paper)(({ theme }) => ({
   border: '2px dashed #1976d2',
@@ -81,10 +82,7 @@ function UploadSection() {
     const formData = new FormData();
     fileList.forEach(file => formData.append('files', file));
     try {
-      const response = await fetch('/api/notes/upload', {
-        method: 'POST',
-        body: formData
-      });
+      const response = await api.post('/notes/upload', formData);
       const text = await response.text();
       setUploadResult(text);
       setFileList([]);

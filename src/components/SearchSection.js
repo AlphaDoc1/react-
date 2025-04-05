@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './SearchSection.css'; // Make sure to create this CSS file
+import { api } from '../api';
 
 function SearchSection() {
   const [query, setQuery] = useState('');
@@ -9,8 +10,10 @@ function SearchSection() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/notes?search=' + encodeURIComponent(query));
-      const data = await response.json();
+      const res = await api.get('/notes/search', {
+        params: { keyword: query }
+      });
+      const data = res.data;
       console.log("Search response data:", data);
       
       // Check if data is an array
@@ -26,6 +29,7 @@ function SearchSection() {
       }
     } catch (error) {
       console.error("Error during search:", error);
+      alert('Unable to search notes. Please try again.');
     } finally {
       setLoading(false);
     }

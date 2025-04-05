@@ -2,6 +2,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import React, { useEffect, useRef, useState } from 'react';
+import { api } from '../api';
 import './ChatbotSection.css'; // We'll create this file next
 
 function ChatbotSection() {
@@ -58,12 +59,8 @@ function ChatbotSection() {
     setChatInput('');
     setIsLoading(true);
     try {
-      const response = await fetch('/api/chat/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage })
-      });
-      const data = await response.json();
+      const response = await api.post('/chatbot', { prompt: userMessage });
+      const data = response.data;
       let botResponse = '';
       if (
         data &&
