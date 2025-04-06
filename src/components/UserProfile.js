@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import api from '../api';
 
 function UserProfile() {
   const [profile, setProfile] = useState({ username: '', fullName: '', email: '', phoneNumber: '' });

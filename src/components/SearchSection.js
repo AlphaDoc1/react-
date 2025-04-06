@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './SearchSection.css'; // Make sure to create this CSS file
-import { api } from '../api';
+import api from '../api';
 
 function SearchSection() {
   const [query, setQuery] = useState('');
